@@ -205,7 +205,7 @@ campsiteRouter.route('/:campsiteId/comments/:commentId')
                     }
                 } else {
                     err = new Error('You are not authorized to update this comment');
-                    err.status = 401;
+                    err.status = 403;
                     return next(err);
 
                 }
@@ -236,7 +236,7 @@ campsiteRouter.route('/:campsiteId/comments/:commentId')
                     }
                 } else {
                     err = new Error('You are not authorized to delete this comment');
-                    err.status = 401;
+                    err.status = 403;
                     return next(err);
 
                 }
