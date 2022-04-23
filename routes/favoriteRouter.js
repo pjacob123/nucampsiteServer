@@ -101,8 +101,7 @@ favoriteRouter.route('/:campsiteId')
     })
     .put(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
         res.statusCode = 403;
-        res.end(`PUT operation not support on /favorites/${req.params.campsiteId
-            }`);
+        res.end(`PUT operation not support on /favorites/${req.params.campsiteId}`);
     })
     .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
         Favorite.findOne({ user: req.user._id })
@@ -128,7 +127,7 @@ favoriteRouter.route('/:campsiteId')
                     } else {
                         res.statusCode = 400;
                         res.setHeader('Content-Type', 'plain/text');
-                        res.end('This is not a favorite campsite');
+                        res.end('This campsites is not in your favorites');
                     }
                 }
             })
