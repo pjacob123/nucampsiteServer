@@ -111,26 +111,25 @@ favoriteRouter.route('/:campsiteId')
                     const index = favorite.campsites.indexOf(req.params.campsiteId);
                     if (index >= 0) {
                         favorite.campsites.splice(index, 1);
-                    }
-                    favorite
-                        .save()
-                        .then(favorite => {
-                            Favorite.findById(favorite._id)
-                                .then(favorite => {
-                                    console.log('Favorite Campsite Deleted', favorite);
-                                    res.statusCode = 200;
-                                    res.setHeader('Content-Type', 'application/json');
-                                    res.json({
-                                        "Message": `Favorite campsite ${req.params.campsiteId} deleted`,
-                                        "Favorite": favorite
+                        favorite.save()
+                            .then(favorite => {
+                                Favorite.findById(favorite._id)
+                                    .then(favorite => {
+                                        console.log('Favorite Campsite Deleted', favorite);
+                                        res.statusCode = 200;
+                                        res.setHeader('Content-Type', 'application/json');
+                                        res.json({
+                                            "Message": `Favorite campsite ${req.params.campsiteId} deleted`,
+                                            "Favorites": favorite
+                                        });
                                     });
-                                });
-                        })
-                        .catch(err => next(err));
-                } else {
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'application/json');
-                    res.json(favorites);
+                            })
+                            .catch(err => next(err));
+                    } else {
+                        res.statusCode = 400;
+                        res.setHeader('Content-Type', 'plain/text');
+                        res.end('This is not a favorite campsite');
+                    }
                 }
             })
             .catch(err => next(err));
